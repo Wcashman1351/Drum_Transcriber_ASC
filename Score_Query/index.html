@@ -1,0 +1,95 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <title> Musical Score Query Server </title>
+ <style>
+    .gridview
+    {
+        border-collapse: collapse;
+        margin: 0px 10px 10px 0;
+        box-shadow: 3px 3px 4px #bbb;    
+    }
+
+    .gridview, .gridview td,  .gridview th
+    {
+        border:  1px solid #cccccc;
+    }
+
+    .gridview th
+    {
+        text-align: left;
+        /*font-size: 1.2em;*/
+        font-weight: normal;
+        color: #F9F9F9;    
+        background: #337EB5;
+    }
+</style>
+
+     <script src="jquery-3.3.1.min.js">
+         // Calls a PHP function to query the MySQL database
+         function sendMySQLRequest(headers) {
+            return Query.ajax({
+                            type: "POST",
+                            url: 'mysql_interface.php',
+                            dataType: 'json',
+                            data: {functionname: 'add', arguments: [1, 2]},
+
+                            success: function (obj, textstatus) {
+                                    if( !('error' in obj) ) {
+                                        yourVariable = obj.result;
+                                    } else {
+                                    console.log(obj.error);
+                                    }
+                                }
+                        });
+         }
+
+         function toggleClass(el, className) {
+        
+        el = (el.className.indexOf(className) >= 0) ?
+            el.className.replace(className,"") : el.className + className;
+    }
+
+    function createTable(headers, elements, ID) {
+        // Creates a table based on the headers and elements provided
+    
+        var div1 = document.getElementById(ID);
+    
+        // creates a <table> element
+        var tbl = document.createElement("table");
+
+        var no_Col = headers.length();
+
+        var table_Row = tbl.insertRow(0);
+        for (var headEL = 0; headEl < no_Col; headEl++) { // Writes the header
+            table_Row.insertCell(headEl).innerHTML = headers[headEl];
+        }
+
+        // Actually fills out the table
+        for (var rowEL = 1; rowEl <= no_Col; rowEL++) {
+            var elementsRow = elements[rowEl];
+
+            table_Row = tbl.insertRow(rowEl); // Create a Row
+            table_Row.setAttribute('onclick', "highlight(this, 'select')"); // Enables highlighting
+            
+            for (var cellEL = 0; cellEl < no_Col; cellEl++) { // Fills out all the cells
+                table_Row.insertCell(cellEl).innerHTML = elementsRow[cellEl];
+            }
+        }
+        div1.appendChild(tbl); // commits <table> into <div1>
+    }
+    </script>
+
+</head>
+<body>
+
+<div id="myTable"> </div>
+<p id="demo"></p>
+
+    <script>
+    document.getElementById("demo").innerHTML = "Am here";
+    // window.onload=createTable(["Col1", "Col2"], ["Cell1", "Cell2"], "myTable"); 
+    </script>
+ </body>
+ </html>
+
