@@ -5,6 +5,9 @@
 </head>
 <body>
 <?php
+    // In PHP all variables are prefixed with '$'
+    // _GET is an array that is generated upon the HTTP request and it contains the url strings.
+    // the _GET array can be indexed using the variable's name
 if (isset($_GET['password'])){
     if ($_GET['password'] = "passWord") {
 

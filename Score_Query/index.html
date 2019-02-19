@@ -59,20 +59,21 @@
         var tbl = document.createElement("table");
 
         var no_Col = headers.length();
+        var no_Row = elements.length();
 
         var table_Row = tbl.insertRow(0);
-        for (var headEL = 0; headEl < no_Col; headEl++) { // Writes the header
+        for (headEL = 0; headEl < no_Col; headEl++) { // Writes the header
             table_Row.insertCell(headEl).innerHTML = headers[headEl];
         }
 
         // Actually fills out the table
-        for (var rowEL = 1; rowEl <= no_Col; rowEL++) {
+        for (rowEL = 0; rowEl < no_Row; rowEL++) {
             var elementsRow = elements[rowEl];
 
             table_Row = tbl.insertRow(rowEl); // Create a Row
             table_Row.setAttribute('onclick', "highlight(this, 'select')"); // Enables highlighting
             
-            for (var cellEL = 0; cellEl < no_Col; cellEl++) { // Fills out all the cells
+            for (cellEL = 0; cellEl < no_Col; cellEl++) { // Fills out all the cells
                 table_Row.insertCell(cellEl).innerHTML = elementsRow[cellEl];
             }
         }
@@ -83,8 +84,16 @@
 </head>
 <body>
 
-<div id="myTable"> </div>
-<p id="demo"></p>
+    <form action="/action_page.php" method="post">
+        Username: <input type="text" name="Username" value=""><br>
+        Password: <input type="password" name="Password" value=""><br>
+        <input type="submit" name="get_scores" value="Retreive Scores">
+    </form>
+        
+    <p>Click the "Submit" button and the form-data will be sent to a page on the server called "/action_page.php".</p>
+    
+    <div id="myTable"> </div>
+    <p id="demo"></p>
 
     <script>
     document.getElementById("demo").innerHTML = "Am here";
