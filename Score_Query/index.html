@@ -2,94 +2,17 @@
  <html>
  <head>
  <title> Musical Score Query Server </title>
- <style>
-    .gridview
-    {
-        border-collapse: collapse;
-        margin: 0px 10px 10px 0;
-        box-shadow: 3px 3px 4px #bbb;    
-    }
-
-    .gridview, .gridview td,  .gridview th
-    {
-        border:  1px solid #cccccc;
-    }
-
-    .gridview th
-    {
-        text-align: left;
-        /*font-size: 1.2em;*/
-        font-weight: normal;
-        color: #F9F9F9;    
-        background: #337EB5;
-    }
-</style>
-
-     <script src="jquery-3.3.1.min.js">
-         // Calls a PHP function to query the MySQL database
-         function sendMySQLRequest(headers) {
-            return Query.ajax({
-                            type: "POST",
-                            url: 'mysql_interface.php',
-                            dataType: 'json',
-                            data: {functionname: 'add', arguments: [1, 2]},
-
-                            success: function (obj, textstatus) {
-                                    if( !('error' in obj) ) {
-                                        yourVariable = obj.result;
-                                    } else {
-                                    console.log(obj.error);
-                                    }
-                                }
-                        });
-         }
-
-         function toggleClass(el, className) {
-        
-        el = (el.className.indexOf(className) >= 0) ?
-            el.className.replace(className,"") : el.className + className;
-    }
-
-    function createTable(headers, elements, ID) {
-        // Creates a table based on the headers and elements provided
-    
-        var div1 = document.getElementById(ID);
-    
-        // creates a <table> element
-        var tbl = document.createElement("table");
-
-        var no_Col = headers.length();
-        var no_Row = elements.length();
-
-        var table_Row = tbl.insertRow(0);
-        for (headEL = 0; headEl < no_Col; headEl++) { // Writes the header
-            table_Row.insertCell(headEl).innerHTML = headers[headEl];
-        }
-
-        // Actually fills out the table
-        for (rowEL = 0; rowEl < no_Row; rowEL++) {
-            var elementsRow = elements[rowEl];
-
-            table_Row = tbl.insertRow(rowEl); // Create a Row
-            table_Row.setAttribute('onclick', "highlight(this, 'select')"); // Enables highlighting
-            
-            for (cellEL = 0; cellEl < no_Col; cellEl++) { // Fills out all the cells
-                table_Row.insertCell(cellEl).innerHTML = elementsRow[cellEl];
-            }
-        }
-        div1.appendChild(tbl); // commits <table> into <div1>
-    }
-    </script>
-
+ <link href="SiteLayout.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-    <form action="/action_page.php" method="post">
+    <form action="/mysql_interface.php" method="post">
         Username: <input type="text" name="Username" value=""><br>
         Password: <input type="password" name="Password" value=""><br>
         <input type="submit" name="get_scores" value="Retreive Scores">
     </form>
         
+
     <p>Click the "Submit" button and the form-data will be sent to a page on the server called "/action_page.php".</p>
     
     <div id="myTable"> </div>

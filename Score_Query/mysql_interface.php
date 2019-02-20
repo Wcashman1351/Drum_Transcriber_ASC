@@ -1,13 +1,15 @@
 <?php
     // I dont know what this does header('Content-Type: application/json');
+
+    // Gets the musical scores from the MySQL database
+    $dbcnx = new mysqli('127.0.0.1', 'root', '123456', 'drum_scores');
+    if (!$dbcnx) {
+        die( '<p>Unable to connect to the database server.</p>' );
+    }
+
     if (isset($_POST['get_scores'])) {
-        // Gets the musical scores from the MySQL database
-        $dbcnx = new mysqli('127.0.0.1', 'root', '123456', 'drum_scores');
-        if (!$dbcnx) {
-            die( '<p>Unable to connect to the database server.</p>' );
-        }
         // Checks Username and Password is valid
-        $query = "SELECT * FROM ACCOUNTS WHERE User=".$_POST['Username']+"AND Pass=".$_POST['Password'];
+        $query = "SELECT * FROM ACCOUNTS WHERE User=".$_POST['Username']+"AND Pass=".$_POST['Password'].";";
         if (!$dbcnx->query($query)) {
             die( '<p>Incorrect Username or Password. Try again.</p>' );
         }
@@ -24,7 +26,19 @@
             die ("<p>Query unsuccessful</p>");
         }
     } else if (isset($_POST['share_score'])) {
-        null;
+        // Checks username is valid
+        $query = "SELECT * FROM ACCOUNTS WHERE User=".$_POST['Username'].";";
+        if (!$dbcnx->query($query)) {
+            die( '<p>Username does not exist. Try again.</p>' );
+        }
+        // Insert musical score
+        $query = "INSERT INTO ".$_POST['Username']."(Score, Data) VALUES ("
+                    .$_POST['data_entry']['score'].", ".$_POST['data_entry']['Date'].");";
+        if ($dbcnx->query($query)) {
+            echo json_encode("Succesdfully Added");
+        } else {
+            echo json_encode("Error adding score");
+        }
     }
 
 ?>
