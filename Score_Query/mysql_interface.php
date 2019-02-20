@@ -9,14 +9,14 @@
 
     if (isset($_POST['get_scores'])) {
         // Checks Username and Password is valid
-        $query = "SELECT * FROM ACCOUNTS WHERE User=".$_POST['Username']+"AND Pass=".$_POST['Password'].";";
+        $query = 'SELECT * FROM ACCOUNTS WHERE Username="'.$_POST['Username'].'"'. ' AND Password="'.$_POST['Password'].'";';
         if (!$dbcnx->query($query)) {
-            die( '<p>Incorrect Username or Password. Try again.</p>' );
+            die( '<p>Incorrect Username or Password. Error: '.$dbcnx->error.'.</p>' );
         }
-
+        
         // Retreives musical scores
         $query = "SELECT * FROM ".$_POST['Username'];
-        if ($result = $dbcnx->query($sql)) {
+        if ($result = $dbcnx->query($query)) {
             // If query is successful, then it puts all the entries into an array and returns it
             while ($row = $result->fetch_assoc()) {
                 $arr[] = $row;

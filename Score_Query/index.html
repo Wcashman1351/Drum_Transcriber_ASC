@@ -3,20 +3,22 @@
  <head>
  <title> Musical Score Query Server </title>
  <link href="SiteLayout.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+ </head>
+ <body>
 
     <form action="/mysql_interface.php" method="post">
         Username: <input type="text" name="Username" value=""><br>
         Password: <input type="password" name="Password" value=""><br>
         <input type="submit" name="get_scores" value="Retreive Scores">
-    </form>
-        
-
-    <p>Click the "Submit" button and the form-data will be sent to a page on the server called "/action_page.php".</p>
+    </form> 
     
     <div id="myTable"> </div>
     <p id="demo"></p>
+
+    <form action="/mysql_interface.php" method="post">
+        Username: <input type="text" name="Username" value=""><br>
+        <input type="submit" name="share_score" value="Share">
+    </form>
 
     <script>
     document.getElementById("demo").innerHTML = "Am here";
