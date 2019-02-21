@@ -1,17 +1,119 @@
- <!DOCTYPE html>
- <html>
- <head>
- <title> Musical Score Query Server </title>
- <link href="SiteLayout.css" rel="stylesheet" type="text/css">
- </head>
- <body>
+<!DOCTYPE html>
+<html>
+<head>
+<title> Musical Score Query Server </title>
+<link href="SiteLayout.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 
-    <form action="/mysql_interface.php" method="post" target="_blank">
-        Username: <input type="text" name="Username" value=""><br>
-        Password: <input type="password" name="Password" value=""><br>
-        <input type="submit" name="RequestType" value="Login">
-    </form> 
+    Username: <input type="text" id="UsernameLogin" value=""><br>
+    Password: <input type="password" id="PasswordLogin" value=""><br>
+    <button id="ButtonLogin">Login</button>
 
- </body>
- </html>
+    <p id="MessageLogin"></p>
+        
+    <p>Share your Music!</p>
 
+    <table id="tableThing">
+        <tr>
+            <td>1 Ferrari F138</td>
+            <td>aaaaaa</td>
+            <td>1980-01-01</td>
+        </tr>
+        <tr>
+            <td>2 Ferrari F138</td>
+            <td>bbbbbb</td>
+            <td>1980-01-01</td>
+        </tr>
+        <tr>
+            <td>3 Ferrari F138</td>
+            <td>ccccc</td>
+            <td>1980-01-01</td>
+        </tr>
+    </table>
+
+    Username: <input id="Share_Username" type="text" value=""><br>
+    <button id="ShareButton">Share</button>
+    <p id="Share_Error">tst</p>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+        $("#ButtonLogin").click(function() {
+            var username = document.getElementById("UsernameLogin").value;
+            var password = document.getElementById("PasswordLogin").value;
+
+            if (username == "") {
+                $("#MessageLogin").text("Please enter a valid username");
+            } else if (password == "") {
+                $("#MessageLogin").text("Please enter a valid password");
+            } else {
+                var XHRequest = new XMLHttpRequest();
+                XHRequest.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if (this.responseText == "Error") {
+                            $("#MessageLogin").text("Error");
+                        } else {
+                            generateTable(JSON.parse(this.responseText));
+                        }   
+                    }
+                }
+                XHRequest.open("POST", "mysql_interface.php", true);
+                XHRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                XHRequest.send("RequestType=Login&Username="+username+"&Password="+password);
+                // Sends POST request. Passes the RequestType, the Username,
+                // and the Score data of the user selected row
+            }
+        });
+
+        $("#tableThing tr").click(function() {
+            // Add the current row to the 'selected' class and remove all other rows from it
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        $("#ShareButton").click(function () {
+            // Gets the the username that the user wants to send to
+            var username = document.getElementById("Share_Username").value;
+
+            if (username == "") {
+                $("#Share_Error").text("Username field cannot be blank");
+            } else {
+                var XHRequest = new XMLHttpRequest();
+                XHRequest.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        $("#Share_Error").text(this.responseText);
+                    }
+                }
+
+                XHRequest.open("POST", "mysql_interface.php", true);
+                XHRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                XHRequest.send("RequestType=Share&Username="+username+
+                            "&scoreData="+$(".selected:first td:nth-child(2)").text()+
+                            "&scoreDate="+$(".selected:first td:nth-child(3)").text());
+                // Sends POST request. Passes the RequestType, the Username,
+                // and the Score data of the user selected row
+            }
+        });
+
+        function generateTable(tableArr) {
+            // Creates a table based on the headers and elements provided
+
+            // creates a <table> element
+            
+            var tbl = document.getElementById("tableThing");
+            // Actually fills out the table
+            for (rowEL in tableArr) {
+                table_Row = tbl.insertRow(-1); // Create a Row
+                for (cellEL in rowEl) { // Fills out all the cells
+                    table_Row.insertCell(-1).innerHTML = cellEl;
+                }
+            }
+            $("#MessageLogin").text(tableArr);
+        }
+
+    </script>
+</body>
+</html>
+    

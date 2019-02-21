@@ -6,41 +6,36 @@
 </head>
 <body>
 
+        <form action="/mysql_interface.php" method="post" target="_blank">
+            Username: <input type="text" name="Username" value=""><br>
+            Password: <input type="password" name="Password" value=""><br>
+            <input type="submit" name="RequestType" value="Login">
+        </form> 
+
     <p>Share your Music!</p>
 
     <table id="tableThing">
         <tr>
             <td>1 Ferrari F138</td>
-            <td>1 000€</td>
-            <td>1 200€</td>
-            <td>Model monopostu stajne Scuderia Ferrari pre sezónu 2013</td>
-            <td>1</td>
-            <td>F138</td>
-            <td>Klik pre detaily</td>
+            <td>aaaaaa</td>
+            <td>1980-01-01</td>
         </tr>
         <tr>
             <td>2 Ferrari F138</td>
-            <td>1 000€</td>
-            <td>1 200€</td>
-            <td>yes</td>
-            <td>1</td>
-            <td>F138</td>
-            <td>Klik pre detaily</td>
+            <td>bbbbbb</td>
+            <td>1980-01-01</td>
         </tr>
         <tr>
             <td>3 Ferrari F138</td>
-            <td>1 000€</td>
-            <td>1 200€</td>
-            <td>Model monopostu stajne Scuderia Ferrari pre sezónu 2013</td>
-            <td>1</td>
-            <td>F138</td>
-            <td>Klik pre detaily</td>
+            <td>ccccc</td>
+            <td>1980-01-01</td>
         </tr>
     </table>
 
-    Username: <input id="Share_Username" type="text" name="Username" value=""><br>
+    Username: <input id="Share_Username" type="text" value=""><br>
     <button id="ShareButton">Share</button>
-    <p id="Share_Error"></p>
+    <p id="Share_Error">tst</p>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -52,11 +47,10 @@
 
         $("#ShareButton").click(function () {
             // Gets the the username that the user wants to send to
-            var username = $("#Share_Username").attr("value");
+            var username = document.getElementById("Share_Username").value;
 
             if (username == "") {
-                $("Share_Error").text("Username field cannot be blank");
-                return;
+                $("#Share_Error").text("Username field cannot be blank");
             } else {
                 var XHRequest = new XMLHttpRequest();
                 XHRequest.onreadystatechange = function() {
@@ -64,14 +58,47 @@
                         $("#Share_Error").text(this.responseText);
                     }
                 }
-                xmlhttp.open("POST", "mysql_interface.php", true);
-                xmlhttp.send("RequestType=Share&Username="+username+
-                            "&scoreData="+$(".selected:first td")[1]+
-                            "&scoreDate="+$(".selected:first td")[2]);
+
+                XHRequest.open("POST", "mysql_interface.php", true);
+                XHRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                XHRequest.send("RequestType=Share&Username="+username+
+                            "&scoreData="+$(".selected:first td:nth-child(2)").text()+
+                            "&scoreDate="+$(".selected:first td:nth-child(3)").text());
                 // Sends POST request. Passes the RequestType, the Username,
                 // and the Score data of the user selected row
             }
         });
+
+        function createTable(headers, elements, ID) {
+    // Creates a table based on the headers and elements provided
+
+    var div1 = document.getElementById(ID);
+
+    // creates a <table> element
+    var tbl = document.createElement("table");
+
+    var no_Col = headers.length();
+    var no_Row = elements.length();
+
+    var table_Row = tbl.insertRow(0);
+    for (headEL = 0; headEl < no_Col; headEl++) { // Writes the header
+        table_Row.insertCell(headEl).innerHTML = headers[headEl];
+    }
+
+    // Actually fills out the table
+    for (rowEL = 0; rowEl < no_Row; rowEL++) {
+        var elementsRow = elements[rowEl];
+
+        table_Row = tbl.insertRow(rowEl); // Create a Row
+        table_Row.setAttribute('onclick', "highlight(this, 'select')"); // Enables highlighting
+        
+        for (cellEL = 0; cellEl < no_Col; cellEl++) { // Fills out all the cells
+            table_Row.insertCell(cellEl).innerHTML = elementsRow[cellEl];
+        }
+    }
+    div1.appendChild(tbl); // commits <table> into <div1>
+}
+
     </script>
 </body>
 </html>

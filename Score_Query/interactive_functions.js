@@ -1,25 +1,3 @@
-// function sendMySQLRequest(headers) {
-//     return Query.ajax({
-//                     type: "POST",
-//                     url: 'mysql_interface.php',
-//                     dataType: 'json',
-//                     data: {functionname: 'add', arguments: [1, 2]},
-
-//                     success: function (obj, textstatus) {
-//                             if( !('error' in obj) ) {
-//                                 yourVariable = obj.result;
-//                             } else {
-//                             console.log(obj.error);
-//                             }
-//                         }
-//                 });
-//  }
-
- function toggleClass(el, className) {
-    // For highlighting table rows I think  
-    el = (el.className.indexOf(className) >= 0) ?
-    el.className.replace(className,"") : el.className + className;
-}
 
 function createTable(headers, elements, ID) {
     // Creates a table based on the headers and elements provided
@@ -50,3 +28,4 @@ function createTable(headers, elements, ID) {
     }
     div1.appendChild(tbl); // commits <table> into <div1>
 }
+
