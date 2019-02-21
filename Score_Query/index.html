@@ -6,24 +6,12 @@
  </head>
  <body>
 
-    <form action="/mysql_interface.php" method="post">
+    <form action="/mysql_interface.php" method="post" target="_blank">
         Username: <input type="text" name="Username" value=""><br>
         Password: <input type="password" name="Password" value=""><br>
-        <input type="submit" name="get_scores" value="Retreive Scores">
+        <input type="submit" name="RequestType" value="Login">
     </form> 
-    
-    <div id="myTable"> </div>
-    <p id="demo"></p>
 
-    <form action="/mysql_interface.php" method="post">
-        Username: <input type="text" name="Username" value=""><br>
-        <input type="submit" name="share_score" value="Share">
-    </form>
-
-    <script>
-    document.getElementById("demo").innerHTML = "Am here";
-    // window.onload=createTable(["Col1", "Col2"], ["Cell1", "Cell2"], "myTable"); 
-    </script>
  </body>
  </html>
 

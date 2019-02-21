@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Musical Score Query Server </title>
+<link href="SiteLayout.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <p>Share your Music!</p>
+
+    <table id="tableThing">
+        <tr>
+            <td>1 Ferrari F138</td>
+            <td>1 000€</td>
+            <td>1 200€</td>
+            <td>Model monopostu stajne Scuderia Ferrari pre sezónu 2013</td>
+            <td>1</td>
+            <td>F138</td>
+            <td>Klik pre detaily</td>
+        </tr>
+        <tr>
+            <td>2 Ferrari F138</td>
+            <td>1 000€</td>
+            <td>1 200€</td>
+            <td>yes</td>
+            <td>1</td>
+            <td>F138</td>
+            <td>Klik pre detaily</td>
+        </tr>
+        <tr>
+            <td>3 Ferrari F138</td>
+            <td>1 000€</td>
+            <td>1 200€</td>
+            <td>Model monopostu stajne Scuderia Ferrari pre sezónu 2013</td>
+            <td>1</td>
+            <td>F138</td>
+            <td>Klik pre detaily</td>
+        </tr>
+    </table>
+
+    Username: <input id="Share_Username" type="text" name="Username" value=""><br>
+    <button id="ShareButton">Share</button>
+    <p id="Share_Error"></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        $("#tableThing tr").click(function() {
+            // Add the current row to the 'selected' class and remove all other rows from it
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        $("#ShareButton").click(function () {
+            // Gets the the username that the user wants to send to
+            var username = $("#Share_Username").attr("value");
+
+            if (username == "") {
+                $("Share_Error").text("Username field cannot be blank");
+                return;
+            } else {
+                var XHRequest = new XMLHttpRequest();
+                XHRequest.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        $("#Share_Error").text(this.responseText);
+                    }
+                }
+                xmlhttp.open("POST", "mysql_interface.php", true);
+                xmlhttp.send("RequestType=Share&Username="+username+
+                            "&scoreData="+$(".selected:first td")[1]+
+                            "&scoreDate="+$(".selected:first td")[2]);
+                // Sends POST request. Passes the RequestType, the Username,
+                // and the Score data of the user selected row
+            }
+        });
+    </script>
+</body>
+</html>
+    
