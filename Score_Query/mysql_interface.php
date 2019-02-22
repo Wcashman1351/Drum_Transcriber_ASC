@@ -6,6 +6,7 @@
     switch ($_POST['RequestType']) {
         case 'Share': echo ShareFunction($_POST['Username'], $_POST['scoreData'], $_POST['scoreDate']); break;
         case 'Login': echo LoginFunction($_POST['Username'], $_POST['Password']); break;
+        case 'Submit': SubmitFunction($_POST['addscore']); break;
              default: die("Not a valid request");
     }
 
@@ -55,4 +56,17 @@
         echo $dbcnx->query($query) ? "Succesdfully Added" : "Error adding score";
     }
 
+    function SubmitFunction($Score) {
+        $dbcnx = new mysqli('127.0.0.1', 'root', '123456', 'drum_scores');
+        if (!$dbcnx) {
+        die( '<p>Unable to connect to the ' .
+            'database server at this time.</p>' );
+        }
+        // If a score  has been submitted,
+        // add it to the database
+        $sql = 'INSERT INTO ADMIN SET ScoreValue="'.$Score.'", Date=CURDATE()';
+
+        echo $dbcnx->query($sql) ? "Your score has been added" 
+                                 : '<p>Error adding submitted score: '.mysql_error();
+    }
 ?>

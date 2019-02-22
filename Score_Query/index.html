@@ -14,31 +14,17 @@
         
     <p>Share your Music!</p>
 
-    <table id="tableThing">
-        <tr>
-            <td>1 Ferrari F138</td>
-            <td>aaaaaa</td>
-            <td>1980-01-01</td>
-        </tr>
-        <tr>
-            <td>2 Ferrari F138</td>
-            <td>bbbbbb</td>
-            <td>1980-01-01</td>
-        </tr>
-        <tr>
-            <td>3 Ferrari F138</td>
-            <td>ccccc</td>
-            <td>1980-01-01</td>
-        </tr>
-    </table>
+    <table id="tableThing"></table>
 
     Username: <input id="Share_Username" type="text" value=""><br>
     <button id="ShareButton">Share</button>
     <p id="Share_Error">tst</p>
 
+    <button id="RenderButton" onclick="RenderScore()">Render</button>
+    <div id="RenderedMusic"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <script src="https://unpkg.com/vexflow/releases/vexflow-debug.js"></script>
     <script>
 
         $("#ButtonLogin").click(function() {
@@ -101,19 +87,42 @@
             // Creates a table based on the headers and elements provided
 
             // creates a <table> element
-            
+
             var tbl = document.getElementById("tableThing");
+            $("#MessageLogin").text(tableArr[0]['ScoreValue']);
             // Actually fills out the table
-            for (rowEL in tableArr) {
+            for (var rowEl=0; rowEl < tableArr.length; rowEl++) {
+                $("#MessageLogin").text(rowEl['Date']);
                 table_Row = tbl.insertRow(-1); // Create a Row
-                for (cellEL in rowEl) { // Fills out all the cells
-                    table_Row.insertCell(-1).innerHTML = cellEl;
-                }
+                table_Row.insertCell(0).innerHTML = tableArr[rowEl]['ID'];
+                table_Row.insertCell(1).innerHTML = tableArr[rowEl]['ScoreValue'];
+                table_Row.insertCell(2).innerHTML = tableArr[rowEl]['Date'];
             }
-            $("#MessageLogin").text(tableArr);
+            $("#tableThing tr").click(function() {
+                // Add the current row to the 'selected' class and remove all other rows from it
+                $(this).addClass('selected').siblings().removeClass('selected');
+            });
         }
 
+        function RenderScore () {
+            const VF = Vex.Flow;
+
+            var vf = new VF.Factory({
+            renderer: {elementId: 'RenderedMusic', width: 500, height: 200}
+            });
+
+            var score = vf.EasyScore();
+            var system = vf.System();
+
+            system.addStave({
+            voices: [
+                score.voice(score.notes('C#5/q, B4, A4, G#4', {stem: 'up'})),
+                score.voice(score.notes('C#4/h, C#4', {stem: 'down'}))
+            ]
+            }).addClef('treble').addTimeSignature('4/4');
+
+            vf.draw();
+        }
     </script>
 </body>
 </html>
-    
