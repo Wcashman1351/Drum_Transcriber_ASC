@@ -4,7 +4,7 @@ Drum Transcriber is an open source (with a [public repository](https://github.co
 
 Detailed implementation can be accessed from [Zoey Chen](https://cs.anu.edu.au/courses/china-study-tour/news/#zoey-chen) and [William Cashman](https://cs.anu.edu.au/courses/china-study-tour/news/#william-cashman)'s blog posts.
 
-# Where This Came From
+## Where This Came From
 > It was a hot summer afternoon, a girl was practicing drums in the music room all alone. The temperature kept climbing and the girl was soaking wet but she kept going. She swang slower and slower and her brain was turning off. Suddenly, a cool breeze came in. The girl woke up, she hits the drums hard and nice in an upbeat mood. “That is beautiful. Which music did you play?” A sweet voice came from her back, from the kind stranger who brought in the breeze - it was a girl her age with big eyes filled with joy. “Ugh…” she tries to remember but the feeling was gone, “it was a random sparkle and it is gone.” The end.
 
 What if the drum girl had something that could record her performance? Would the story be totally different? Those two girls can happily share the music the drum girl played and listen to it over and over again!
@@ -38,7 +38,7 @@ Attach the sensor onto the counter hoop of the drum, then connect the sensor and
 Download and install Arduino IDE from [Arduino.cc](https://www.arduino.cc/en/main/software).
 Upload the file in Transcriber folder to ESP32 using Arduino IDE.
 
-With this part of code and the physcial set up, you will be able to see the hit detection on your local machine that is connected via cable to the ESP32. With the server set up we can see the generated notes on the server, which would be transmitted from the ESP32 to the server via WiFi (this step does not require the USB-micro to x cable). In the example below we used [Serial_Plotter](https://gitlab.com/2b-a2/serial-plotter) to present the hits graphically.
+With this part of code and the physcial set up, you will be able to see the hit detection on your local machine that is connected via cable to the ESP32. With the server set up we can see the generated notes on the server, which would be transmitted from the ESP32 to the server via WiFi (this step does not require the USB-micro to x cable). In the example [here](https://www.youtube.com/watch?v=5dQSTG8rNU4) we used [Serial_Plotter](https://gitlab.com/2b-a2/serial-plotter) to present the hits graphically.
 
 {% include youtube.html id="5dQSTG8rNU4" %}
 
