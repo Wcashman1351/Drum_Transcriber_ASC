@@ -42,9 +42,9 @@ Example set up:
 
 ### Software requirements
 #### For Micro-controller (ESP32-PICO-KIT)
-Download and install Arduino IDE from [Arduino.cc](https://www.arduino.cc/en/main/software).
-Install the ESP32 add-on on Arduino IDE following [this tutorial](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/).
-Upload the file in Transcriber folder to ESP32 using Arduino IDE.
+- Download and install Arduino IDE from [Arduino.cc](https://www.arduino.cc/en/main/software).
+- Install the ESP32 add-on on Arduino IDE following [this tutorial](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/).
+- Upload the file in Transcriber folder to ESP32 using Arduino IDE.
 
 With this part of code and the physcial set up, you will be able to see the hit detection on your local machine that is connected via cable to the ESP32. With the server set up we can see the generated notes on the server, which would be transmitted from the ESP32 to the server via WiFi (this step does not require the USB-micro to x cable). In the example [here](https://www.youtube.com/watch?v=5dQSTG8rNU4) we used [Serial_Plotter](https://gitlab.com/2b-a2/serial-plotter) to present the hits graphically.
 
