@@ -21,6 +21,8 @@ This is where the idea of Drum Transcriber came from. An artefact that would sav
 ## Example:
 
 Here is an example of output music bar:
+
+
 ![Render_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC/blob/master/assets/Render_Eg.png)
 
 ## Installation
@@ -35,7 +37,7 @@ Attach the sensor onto the counter hoop of the drum, then connect the sensor to 
 
 Example set up:
 
-![Physical_Set_Up_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC/blob/master/assets/IMG_6990.jpeg)
+![Physical_Set_Up_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC/blob/master/assets/Phy_Set_Up.png)
 
 
 ### Software requirements
