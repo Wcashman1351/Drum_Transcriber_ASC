@@ -37,7 +37,7 @@ Attach the sensor onto the counter hoop of the drum, then connect the sensor to 
 
 Example set up:
 
-![Physical_Set_Up_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC | width=200) 
+![Physical_Set_Up_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC){:height="400px" width="200px"} 
 
 
 ### Software requirements
