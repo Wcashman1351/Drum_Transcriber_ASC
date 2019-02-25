@@ -33,6 +33,11 @@ Here is an example of output music bar:
 
 Attach the sensor onto the counter hoop of the drum, then connect the sensor to ESP32-PICO-KIT's IO34 and GND pins using jumper wires.
 
+Example set up:
+
+![Physical_Set_Up_Example](https://github.com/Wcashman1351/Drum_Transcriber_ASC/blob/master/assets/IMG_6990.jpeg)
+
+
 ### Software requirements
 #### For Micro-controller (ESP32-PICO-KIT)
 Download and install Arduino IDE from [Arduino.cc](https://www.arduino.cc/en/main/software).
