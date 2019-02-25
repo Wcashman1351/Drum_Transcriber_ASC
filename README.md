@@ -40,11 +40,12 @@ Upload the file in Transcriber folder to ESP32 using Arduino IDE.
 
 With this part of code and the physcial set up, you will be able to see the hit detection on your local machine that is connected via cable to the ESP32. With the server set up we can see the generated notes on the server, which would be transmitted from the ESP32 to the server via WiFi (this step does not require the USB-micro to x cable). In the example [here](https://www.youtube.com/watch?v=5dQSTG8rNU4) we used [Serial_Plotter](https://gitlab.com/2b-a2/serial-plotter) to present the hits graphically.
 
-{% include youtube.html id="5dQSTG8rNU4" %}
-
 #### For Web Server 
-Download and install PHP and MySQL (?)
+This project is intended to run on a single remote webserver, however, since the project is still in the early stages of development (when compared to a product you would actually deploy) it might be convenient to host your own version of the webserver on your device. 
 
+To allow your personal device to act as a webserver:
+1. Setup Apache2.0, MySQL and PHP on your device: [MacOS](https://websitebeaver.com/set-up-localhost-on-macos-high-sierra-apache-mysql-and-php-7-with-sslhttps), [Windows](https://www.znetlive.com/blog/how-to-install-apache-php-and-mysql-on-windows-10-machine/), [Linux](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04).
+2. 
 ## Development
 Drum Transcriber is open to push requests! 
 
