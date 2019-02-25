@@ -31,7 +31,7 @@ Here is an example of output music bar:
 - Breadboard (optional)
 - USB-micro to x (x is the type of connector on your local machine) (optional, only if you want to see the printed results on your local machine)
 
-Attach the sensor onto the counter hoop of the drum, then connect the sensor and ESP32-PICO-KIT using jumper wires.
+Attach the sensor onto the counter hoop of the drum, then connect the sensor to ESP32-PICO-KIT's IO34 and GND pins using jumper wires.
 
 ### Software requirements
 #### For Micro-controller (ESP32-PICO-KIT)
