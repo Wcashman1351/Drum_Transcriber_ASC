@@ -5,29 +5,35 @@
 <link href="SiteLayout.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+    <!-- Login -->
     Username: <input type="text" id="UsernameLogin" value=""><br>
     Password: <input type="password" id="PasswordLogin" value=""><br>
     <button id="ButtonLogin">Login</button>
-
-    <p id="MessageLogin"></p>
-        
+    <p id="MessageLogin"></p>   <!-- Error Message Element-->
+     
+    <!-- Displaying the retreived scores -->
     <p>Share your Music!</p>
-
     <table id="tableThing"></table>
 
+    <!-- Sharing the scores -->
     Username: <input id="Share_Username" type="text" value=""><br>
     <button id="ShareButton">Share</button>
     <p id="Share_Error">tst</p>
 
+    <!-- Rendering the score -->
     <button id="RenderButton" onclick="RenderScore()">Render</button>
     <div id="RenderedMusic"></div>
+    <p id="RenderError"></p>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/vexflow/releases/vexflow-debug.js"></script>
     <script>
-
+        
         $("#ButtonLogin").click(function() {
+            // Button click causes user to log on. 
+            // This: - Verifies username and password are correct
+            //       - Fetches user's scores.
+            //       - Generates table with the user's scores
             var username = document.getElementById("UsernameLogin").value;
             var password = document.getElementById("PasswordLogin").value;
 
@@ -55,7 +61,7 @@
         });
 
         $("#tableThing tr").click(function() {
-            // Add the current row to the 'selected' class and remove all other rows from it
+            // Highlights a table row by adding it to the "selected" class
             $(this).addClass('selected').siblings().removeClass('selected');
         });
 
@@ -84,9 +90,9 @@
         });
 
         function generateTable(tableArr) {
-            // Creates a table based on the headers and elements provided
-
-            // creates a <table> element
+            // Creates a html table based on an array of rows.
+            // Rows are indexed by position: 0, 1, 2, ...
+            // Elements inside row are indexed by name.
 
             var tbl = document.getElementById("tableThing");
             $("#MessageLogin").text(tableArr[0]['ScoreValue']);
@@ -104,23 +110,30 @@
             });
         }
 
+        // Renders the notes into a musical sheet. Though there is still some trouble with creates the bars
+        // on the music sheet and assigning the correct number of notes to them
+        NoteMapping = {'1':'8', '2':'q', '3':'q.', '4':'h', '6':'h.', '7':'h..', '8':'w'}
+
         function RenderScore () {
             const VF = Vex.Flow;
 
             var vf = new VF.Factory({
             renderer: {elementId: 'RenderedMusic', width: 500, height: 200}
             });
-
+            var Scores = document.getElementsByClassName('selected')[0].innerHTML.split("_").slice(1,-1);
+            var totalString = '';
+            for (var notes in Scores) {
+                if (notes in NoteMapping){
+                    totalString += ", C5/" + NoteMapping[notes];
+                }     
+             }
+            document.getElementsByName('RenderError').innerHTML = totalString;
             var score = vf.EasyScore();
             var system = vf.System();
 
             system.addStave({
-            voices: [
-                score.voice(score.notes('C#5/q, B4, A4, G#4', {stem: 'up'})),
-                score.voice(score.notes('C#4/h, C#4', {stem: 'down'}))
-            ]
-            }).addClef('treble').addTimeSignature('4/4');
-
+                voices: [score.voice(score.notes(totalString.substring(2)))]
+                    }).addClef('treble').addTimeSignature('4/4');
             vf.draw();
         }
     </script>
